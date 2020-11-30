@@ -8,6 +8,7 @@ import (
 	"golang.org/x/net/html"
 )
 
+// Crawler holds values needed to crawl a page
 type Crawler struct {
 	err    error
 	target io.Writer
@@ -15,6 +16,7 @@ type Crawler struct {
 	client *http.Client
 }
 
+// New creates a new Crawler
 func New(client *http.Client, u string, out io.Writer) *Crawler {
 	if client == nil {
 		client = http.DefaultClient
@@ -27,6 +29,7 @@ func New(client *http.Client, u string, out io.Writer) *Crawler {
 	return &c
 }
 
+// Crawl performs page crawling for urls
 func (c *Crawler) Crawl() {
 	resp, err := c.client.Get(c.url.String())
 	if err != nil {
@@ -37,6 +40,7 @@ func (c *Crawler) Crawl() {
 	c.extractLinks(resp.Body)
 }
 
+// Err returns a crawling error
 func (c *Crawler) Err() error {
 	return c.err
 }

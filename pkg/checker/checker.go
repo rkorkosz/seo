@@ -7,12 +7,14 @@ import (
 	"net/url"
 )
 
+// Checker holds values needed to check the url
 type Checker struct {
 	client *http.Client
 	target io.Writer
 	source io.Reader
 }
 
+// New creates a new Checker
 func New(client *http.Client, source io.Reader, target io.Writer) *Checker {
 	if client == nil {
 		client = http.DefaultClient
@@ -24,6 +26,7 @@ func New(client *http.Client, source io.Reader, target io.Writer) *Checker {
 	}
 }
 
+// Check performs the url status code checking
 func (c *Checker) Check() {
 	s := bufio.NewScanner(c.source)
 	for s.Scan() {
