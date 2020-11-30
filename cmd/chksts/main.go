@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/rkorkosz/crwl/internal/checker"
+	"github.com/rkorkosz/seo/pkg/checker"
 )
 
 func main() {
