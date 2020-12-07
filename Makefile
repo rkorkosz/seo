@@ -8,3 +8,6 @@ build-chksts:
 	go build -ldflags=${LDFLAGS} -o target/chksts ./cmd/chksts/main.go
 
 build: build-crwl build-chksts
+
+test:
+	go test -v ./...

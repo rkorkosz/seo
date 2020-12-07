@@ -73,19 +73,22 @@ func (c *Crawler) extractLinks(body io.Reader) {
 		case html.ErrorToken:
 			return
 		case html.StartTagToken:
-			tn, _ := z.TagName()
+			tn, hasAttr := z.TagName()
+			if !hasAttr {
+				continue
+			}
 			if len(tn) == 1 && tn[0] == 'a' {
 				for {
 					key, val, more := z.TagAttr()
-					if !more {
-						break
-					}
 					if string(key) == "href" {
 						_, err = c.target.Write(c.clean(val))
 						_, err = c.target.Write([]byte("\n"))
 						if err != nil {
 							c.err = err
 						}
+					}
+					if !more {
+						break
 					}
 				}
 			}
